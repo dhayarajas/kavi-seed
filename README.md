@@ -94,21 +94,27 @@ python generate_custom_results.py
 │   ├── AIRS_GSeed_Custom_Dataset_Analysis.ipynb  ⭐ Main Jupyter Notebook
 │   ├── generate_custom_results.py                 Python analysis script
 │   ├── read_custom_dataset.py                     Dataset reader
-│   ├── paper.tex                                  LaTeX manuscript
 │   ├── results/                                   Generated charts & CSVs
 │   └── src/                                       Framework source code
 │
 ├── Custom-Dataset/
 │   └── Three_Month_Seed_Quality_Data.xlsx        ⭐ Your seed quality data
 │
-├── Images/                                        Generated visualizations
-├── Ref-Papers/                                    Reference literature
+├── paper/                                         ⭐ Research manuscript
+│   ├── paper.tex                                   LaTeX source
+│   ├── references.bib                              Bibliography
+│   ├── paper.pdf                                   Compiled manuscript
+│   ├── figures/                                    Architecture diagrams
+│   └── images/                                     Result visualizations
 │
-└── Documentation/
-    ├── HOW_TO_RUN_IN_COLAB.md                    Colab instructions
-    ├── CUSTOM_DATASET_RESULTS.md                  Analysis findings
-    ├── CUSTOM_DATASET_USAGE.md                    Usage guide
-    └── JUPYTER_NOTEBOOK_CREATED.md                Notebook documentation
+├── docs/                                          📚 Documentation
+│   ├── HOW_TO_RUN_IN_COLAB.md                     Colab instructions
+│   ├── CUSTOM_DATASET_RESULTS.md                  Analysis findings
+│   ├── CUSTOM_DATASET_USAGE.md                    Usage guide
+│   └── ... (15 documentation files)
+│
+├── Images/                                        Generated visualizations
+└── Ref-Papers/                                    Reference literature
 ```
 
 ---
