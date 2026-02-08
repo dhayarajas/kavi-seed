@@ -1,8 +1,13 @@
 \documentclass[journal]{IEEEtran}
 
+% *** IEEE COMPLIANCE SETTINGS ***
+\IEEEoverridecommandlockouts
+% For final submission, comment out above line
+
 % *** PACKAGES ***
+% Core packages
 \usepackage{cite}
-\usepackage{natbib}
+% Note: natbib removed - incompatible with IEEEtran citation style
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{algorithmic}
 \usepackage{algorithm}
@@ -12,14 +17,60 @@
 \usepackage{multirow}
 \usepackage{booktabs}
 \usepackage{url}
-\usepackage{hyperref}
 \usepackage{float}
+\usepackage{siunitx}  % For proper SI units formatting
+\usepackage[version=4]{mhchem}  % For chemical formulas
+
+% Hyperref must be loaded LAST (best practice)
+\usepackage[pdftex,
+            pdfauthor={Anonymous Authors},
+            pdftitle={AIRS-GSeed: AI-Driven Groundnut Seed Health Assessment},
+            pdfsubject={Remote Sensing, Machine Learning, Agriculture},
+            pdfkeywords={groundnut, aflatoxin, UAV, hyperspectral, machine learning},
+            pdfproducer={LaTeX with IEEEtran},
+            pdfcreator={pdflatex}]{hyperref}
+
+% Configure hyperref colors for print-friendly output
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    citecolor=black,
+    filecolor=black,
+    urlcolor=black
+}
+
+% Configure siunitx for proper unit formatting
+\sisetup{
+    detect-all,
+    binary-units=true,
+    per-mode=symbol
+}
+
+% *** CUSTOM COMMANDS FOR CONSISTENCY ***
+% Mathematical operators in roman (best practice)
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator{\softmax}{softmax}
+\DeclareMathOperator{\sigmoid}{sigmoid}
+
+% Consistent formatting for model names
+\newcommand{\airsgseed}{AIRS-GSeed}
+\newcommand{\shi}{SHI}
+\newcommand{\ars}{ARS}
+
+% Vector notation (bold)
+\renewcommand{\vec}[1]{\mathbf{#1}}
+
+% Common abbreviations with proper spacing
+\newcommand{\ie}{i.e.\@\xspace}
+\newcommand{\eg}{e.g.\@\xspace}
+\newcommand{\etal}{et~al.\@\xspace}
 
 % *** GRAPHICS PATH ***
 \graphicspath{{figures/}{results/}{images/}}
 
 % *** CORRECT BAD HYPHENATION ***
-\hyphenation{op-tical net-works semi-conduc-tor ground-nut aflatoxin}
+\hyphenation{op-tical net-works semi-conduc-tor ground-nut aflatoxin hyper-spectral multi-modal}
 
 \begin{document}
 
@@ -31,7 +82,7 @@
 
 % The paper headers
 \markboth{IEEE Transactions on Geoscience and Remote Sensing, Vol. XX, No. X, Month 2024}%
-{Shell \& Make}
+{Authors \MakeLowercase{\textit{et al.}}: AIRS-GSeed Framework}
 
 % *** ABSTRACT ***
 \begin{abstract}
@@ -166,21 +217,21 @@ AIRS-GSeed employs a four-layer architecture as illustrated in Fig.~\ref{fig:arc
 \subsection{Sensing Layer}
 
 \subsubsection{UAV Remote Sensing}
-UAV flights are conducted weekly during critical growth stages (60-120 days after sowing, DAS) with:
+UAV flights are conducted weekly during critical growth stages (\SIrange{60}{120}{days} after sowing, DAS) with:
 \begin{itemize}
-    \item RGB imaging: 4K resolution, 1-3 cm GSD
-    \item Multispectral: 5 bands (RGB, Red-edge 730 nm, NIR 850 nm), 5-10 cm GSD
-    \item Thermal: 640×512 resolution, 10-20 cm GSD
+    \item RGB imaging: 4K resolution, \SIrange{1}{3}{\centi\meter} GSD
+    \item Multispectral: 5 bands (RGB, Red-edge \SI{730}{\nano\meter}, NIR \SI{850}{\nano\meter}), \SIrange{5}{10}{\centi\meter} GSD
+    \item Thermal: $640 \times 512$ resolution, \SIrange{10}{20}{\centi\meter} GSD
 \end{itemize}
 
 \subsubsection{Soil \& Pod-Zone Sensors}
-Capacitive soil moisture sensors (0-100\% VWC), temperature sensors (-40°C to 85°C), and EC sensors are deployed at 5-10 cm depth (pod zone) with 15-minute logging intervals.
+Capacitive soil moisture sensors (\SIrange{0}{100}{\percent} VWC), temperature sensors (\SIrange{-40}{85}{\celsius}), and EC sensors are deployed at \SIrange{5}{10}{\centi\meter} depth (pod zone) with \SI{15}{\minute} logging intervals.
 
 \subsubsection{Hyperspectral Seed Analysis}
-Portable hyperspectral spectrometers (400-2500 nm, 3 nm resolution) are used for seed sample analysis, triggered by UAV stress alerts or harvest sampling.
+Portable hyperspectral spectrometers (\SIrange{400}{2500}{\nano\meter}, \SI{3}{\nano\meter} resolution) are used for seed sample analysis, triggered by UAV stress alerts or harvest sampling.
 
 \subsubsection{Storage IoT Sensors}
-Continuous monitoring of temperature, relative humidity (RH), CO₂, and volatile organic compounds (VOC) in storage facilities with 5-minute intervals.
+Continuous monitoring of temperature, relative humidity (RH), \ce{CO2}, and volatile organic compounds (VOC) in storage facilities with \SI{5}{\minute} intervals.
 
 \subsection{Data Processing \& Fusion}
 
@@ -238,81 +289,98 @@ SHAP (SHapley Additive exPlanations) \cite{ref_shap} provides feature importance
 
 \subsubsection{Canopy Stress Detection}
 
-The hybrid CNN-ViT model processes multi-modal image inputs $\mathbf{I} = \{\mathbf{I}_{RGB}, \mathbf{I}_{MS}, \mathbf{I}_{Thermal}\}$ to predict stress probability:
-
+The hybrid CNN-ViT model processes multi-modal image inputs $\mathbf{I} = \{\mathbf{I}_{\text{RGB}}, \mathbf{I}_{\text{MS}}, \mathbf{I}_{\text{Thermal}}\}$ to predict stress probability:
+%
 \begin{equation}
-P(y|\mathbf{I}) = \text{Softmax}\left(\text{Concat}[\mathbf{f}_{CNN}, \mathbf{f}_{ViT}]\right)
+P(y|\mathbf{I}) = \mathrm{Softmax}\left(\mathrm{Concat}[\mathbf{f}_{\text{CNN}}, \mathbf{f}_{\text{ViT}}]\right),
+\label{eq:cnn_vit}
 \end{equation}
-
-where $\mathbf{f}_{CNN} = \text{ResNet}(\mathbf{I})$ extracts local features and $\mathbf{f}_{ViT} = \text{Transformer}(\text{PatchEmbed}(\mathbf{I}))$ captures global context. The attention mechanism in ViT is:
-
+%
+where $\mathbf{f}_{\text{CNN}} = \mathrm{ResNet}(\mathbf{I})$ extracts local features and $\mathbf{f}_{\text{ViT}} = \mathrm{Transformer}(\mathrm{PatchEmbed}(\mathbf{I}))$ captures global context. The attention mechanism in ViT is:
+%
 \begin{equation}
-\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{softmax}\left(\frac{\mathbf{Q}\mathbf{K}^T}{\sqrt{d_k}}\right)\mathbf{V}
+\mathrm{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \softmax\left(\frac{\mathbf{Q}\mathbf{K}^T}{\sqrt{d_k}}\right)\mathbf{V},
+\label{eq:attention}
 \end{equation}
+%
+where $d_k$ is the dimension of the key vectors.
 
 \subsubsection{Pod-Zone Stress Inference (Physics-Informed)}
 
 The physics-informed neural network infers pod-zone moisture $\theta_p$ from canopy features $\mathbf{f}_c$, soil sensors $\mathbf{s}$, and weather $\mathbf{w}$:
-
+%
 \begin{equation}
-\theta_p = f_{PINN}(\mathbf{f}_c, \mathbf{s}, \mathbf{w}; \boldsymbol{\theta})
+\theta_p = f_{\text{PINN}}(\mathbf{f}_c, \mathbf{s}, \mathbf{w}; \boldsymbol{\theta}),
+\label{eq:pinn}
 \end{equation}
-
-The physics loss incorporates soil moisture diffusion:
-
+%
+where $\boldsymbol{\theta}$ represents the network parameters. The physics loss incorporates soil moisture diffusion:
+%
 \begin{equation}
-\mathcal{L}_{physics} = \lambda_1 \left\|\frac{\partial \theta_p}{\partial t} - D\nabla^2 \theta_p\right\|^2 + \lambda_2 \|\theta_p - \theta_{soil}\|^2
+\mathcal{L}_{\text{physics}} = \lambda_1 \left\|\frac{\partial \theta_p}{\partial t} - D\nabla^2 \theta_p\right\|^2 + \lambda_2 \|\theta_p - \theta_{\text{soil}}\|^2,
+\label{eq:physics_loss}
 \end{equation}
-
-where $D$ is the soil moisture diffusivity, $\theta_{soil}$ is measured soil moisture, and $\lambda_1, \lambda_2$ are weighting factors. The total loss is:
-
+%
+where $D$ is the soil moisture diffusivity, $\theta_{\text{soil}}$ is measured soil moisture, and $\lambda_1, \lambda_2$ are weighting factors. The total loss is:
+%
 \begin{equation}
-\mathcal{L}_{total} = \mathcal{L}_{data} + \mathcal{L}_{physics}
+\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{data}} + \mathcal{L}_{\text{physics}}.
+\label{eq:total_loss}
 \end{equation}
 
 \subsubsection{Seed Health Index (SHI) Prediction}
 
-SHI is predicted through multi-modal fusion:
-
+\shi\ is predicted through multi-modal fusion:
+%
 \begin{equation}
-\text{SHI} = g\left(\text{Attention}\left[\mathbf{h}_{spec}, \mathbf{h}_{UAV}, \mathbf{h}_{env}\right]\right)
+\text{\shi} = g\left(\mathrm{Attention}\left[\mathbf{h}_{\text{spec}}, \mathbf{h}_{\text{UAV}}, \mathbf{h}_{\text{env}}\right]\right),
+\label{eq:shi}
 \end{equation}
-
-where $\mathbf{h}_{spec} = \text{CNN1D}(\mathbf{s}_{hyperspectral})$ encodes hyperspectral features, $\mathbf{h}_{UAV} = \text{MLP}(\mathbf{f}_{UAV})$ encodes UAV features, and $\mathbf{h}_{env} = \text{MLP}(\mathbf{f}_{env})$ encodes environmental features. The attention mechanism weights each modality:
-
+%
+where $\mathbf{h}_{\text{spec}} = \mathrm{CNN1D}(\mathbf{s}_{\text{hyperspectral}})$ encodes hyperspectral features, $\mathbf{h}_{\text{UAV}} = \mathrm{MLP}(\mathbf{f}_{\text{UAV}})$ encodes UAV features, and $\mathbf{h}_{\text{env}} = \mathrm{MLP}(\mathbf{f}_{\text{env}})$ encodes environmental features. The attention mechanism weights each modality:
+%
 \begin{equation}
-\alpha_i = \frac{\exp(\mathbf{W}_i^T \mathbf{h}_i)}{\sum_{j=1}^{3} \exp(\mathbf{W}_j^T \mathbf{h}_j)}
+\alpha_i = \frac{\exp(\mathbf{W}_i^T \mathbf{h}_i)}{\sum_{j=1}^{3} \exp(\mathbf{W}_j^T \mathbf{h}_j)},
+\label{eq:attention_weights}
 \end{equation}
+%
+where $\mathbf{W}_i$ are learnable weight matrices.
 
 \subsubsection{Aflatoxin Risk Score (ARS) Prediction}
 
-ARS is computed as an ensemble of three models:
-
+\ars\ is computed as an ensemble of three models:
+%
 \begin{equation}
-\text{ARS} = w_1 \text{ARS}_{spec} + w_2 \text{ARS}_{field} + w_3 \text{ARS}_{storage}
+\text{\ars} = w_1 \text{\ars}_{\text{spec}} + w_2 \text{\ars}_{\text{field}} + w_3 \text{\ars}_{\text{storage}},
+\label{eq:ars}
 \end{equation}
-
+%
 where weights $w_i$ are uncertainty-aware:
-
+%
 \begin{equation}
-w_i = \frac{1/\sigma_i^2}{\sum_{j=1}^{3} 1/\sigma_j^2}
+w_i = \frac{1/\sigma_i^2}{\sum_{j=1}^{3} 1/\sigma_j^2},
+\label{eq:uncertainty_weights}
 \end{equation}
-
-and $\sigma_i$ represents prediction uncertainty. The field component integrates temporal features:
-
+%
+and $\sigma_i$ represents the prediction uncertainty of the $i$-th model. The field component integrates temporal features:
+%
 \begin{equation}
-\text{ARS}_{field} = \text{LSTM}\left(\text{Transformer}\left[\mathbf{f}_t\right]_{t=1}^{T}\right)
+\text{\ars}_{\text{field}} = \mathrm{LSTM}\left(\mathrm{Transformer}\left[\mathbf{f}_t\right]_{t=1}^{T}\right),
+\label{eq:ars_field}
 \end{equation}
+%
+where $T$ is the number of time steps.
 
 \subsubsection{Temporal Disease Progression}
 
-The Transformer + LSTM model predicts future stress probability:
-
+The Transformer+LSTM model predicts future stress probability:
+%
 \begin{equation}
-P(y_{t+\Delta t}|\mathbf{X}_{1:t}) = \text{LSTM}\left(\text{Transformer}(\mathbf{X}_{1:t})\right)
+P(y_{t+\Delta t}|\mathbf{X}_{1:t}) = \mathrm{LSTM}\left(\mathrm{Transformer}(\mathbf{X}_{1:t})\right),
+\label{eq:temporal}
 \end{equation}
-
-where $\mathbf{X}_{1:t} = [\mathbf{x}_1, \mathbf{x}_2, \ldots, \mathbf{x}_t]$ is the time series of features up to time $t$, and $\Delta t$ is the prediction horizon (1-4 weeks).
+%
+where $\mathbf{X}_{1:t} = [\mathbf{x}_1, \mathbf{x}_2, \ldots, \mathbf{x}_t]$ is the time series of features up to time $t$, and $\Delta t$ is the prediction horizon (\SIrange{1}{4}{weeks}).
 
 \subsection{Algorithm}
 
@@ -403,7 +471,7 @@ AIRS-GSeed is compared against:
 
 \subsection{Canopy Stress Detection Performance}
 
-Table~\ref{tab:canopy_performance} presents the canopy stress detection performance. AIRS-GSeed achieves 89.2\% accuracy with macro F1-score of 0.87, significantly outperforming baseline methods. The multi-modal approach (RGB + multispectral + thermal) provides 8.5\% accuracy improvement over RGB-only CNN.
+Table~\ref{tab:canopy_performance} presents the canopy stress detection performance. \airsgseed\ achieves \SI{89.2}{\percent} accuracy with macro F1-score of 0.87, significantly outperforming baseline methods. The multi-modal approach (RGB + multispectral + thermal) provides \SI{8.5}{\percent} accuracy improvement over RGB-only CNN.
 
 \begin{table}[!t]
 \renewcommand{\arraystretch}{1.3}
@@ -413,11 +481,12 @@ Table~\ref{tab:canopy_performance} presents the canopy stress detection performa
 \begin{tabular}{lcccc}
 \toprule
 \textbf{Method} & \textbf{Accuracy} & \textbf{Macro F1} & \textbf{AUC-ROC} & \textbf{Lead Time} \\
+ & (\si{\percent}) & & & (days) \\
 \midrule
-AIRS-GSeed (Full) & \textbf{89.2\%} & \textbf{0.87} & \textbf{0.93} & \textbf{10.5 days} \\
-RGB-only CNN & 80.7\% & 0.76 & 0.85 & 5.2 days \\
-NDVI Threshold & 72.3\% & 0.68 & 0.74 & 2.1 days \\
-Non-Temporal & 85.1\% & 0.82 & 0.89 & 7.8 days \\
+AIRS-GSeed (Full) & \textbf{89.2} & \textbf{0.87} & \textbf{0.93} & \textbf{10.5} \\
+RGB-only CNN & 80.7 & 0.76 & 0.85 & 5.2 \\
+NDVI Threshold & 72.3 & 0.68 & 0.74 & 2.1 \\
+Non-Temporal & 85.1 & 0.82 & 0.89 & 7.8 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -440,7 +509,7 @@ Figure~\ref{fig:canopy_performance} illustrates canopy stress detection performa
 
 \subsection{Pod-Zone Stress Inference}
 
-The physics-informed neural network achieves pod moisture estimation with RMSE of 6.2\% VWC and correlation of 0.78 with limited ground truth data. Table~\ref{tab:pod_zone} compares pod-zone inference methods.
+The physics-informed neural network achieves pod moisture estimation with RMSE of \SI{6.2}{\percent} VWC and correlation of 0.78 with limited ground truth data. Table~\ref{tab:pod_zone} compares pod-zone inference methods.
 
 \begin{table}[!t]
 \renewcommand{\arraystretch}{1.3}
@@ -450,26 +519,27 @@ The physics-informed neural network achieves pod moisture estimation with RMSE o
 \begin{tabular}{lcc}
 \toprule
 \textbf{Method} & \textbf{Pod Moisture RMSE} & \textbf{Correlation} \\
+ & (\si{\percent} VWC) & \\
 \midrule
-AIRS-GSeed (PINN) & \textbf{6.2\% VWC} & \textbf{0.78} \\
-Canopy-Only & 9.8\% VWC & 0.63 \\
-Non-Physics ML & 7.5\% VWC & 0.71 \\
+AIRS-GSeed (PINN) & \textbf{6.2} & \textbf{0.78} \\
+Canopy-Only & 9.8 & 0.63 \\
+Non-Physics ML & 7.5 & 0.71 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \subsection{Seed Health Index (SHI) Prediction}
 
-Table~\ref{tab:shi_performance} shows SHI prediction performance. The multi-modal fusion approach achieves R² of 0.81 and RMSE of 9.8 points (on 0-100 scale), with strong correlation (0.86) to germination rate.
+Table~\ref{tab:shi_performance} shows \shi\ prediction performance. The multi-modal fusion approach achieves $R^2$ of 0.81 and RMSE of 9.8~points (on 0--100 scale), with strong correlation (0.86) to germination rate.
 
 \begin{table}[!t]
 \renewcommand{\arraystretch}{1.3}
-\caption{Seed Health Index (SHI) Prediction Performance}
+\caption{Seed Health Index (\shi) Prediction Performance}
 \label{tab:shi_performance}
 \centering
 \begin{tabular}{lcccc}
 \toprule
-\textbf{Method} & \textbf{R²} & \textbf{RMSE} & \textbf{MAE} & \textbf{Correlation} \\
+\textbf{Method} & \textbf{$R^2$} & \textbf{RMSE} & \textbf{MAE} & \textbf{Correlation} \\
 \midrule
 AIRS-GSeed (Multi-modal) & \textbf{0.81} & \textbf{9.8} & \textbf{7.2} & \textbf{0.86} \\
 Hyperspectral-Only & 0.72 & 12.5 & 9.1 & 0.79 \\
@@ -490,21 +560,22 @@ Figure~\ref{fig:seed_health} shows SHI and ARS prediction results with method co
 
 \subsection{Aflatoxin Risk Score (ARS) Prediction}
 
-Table~\ref{tab:ars_performance} presents ARS prediction results. The end-to-end model achieves R² of 0.76 with early warning lead time of 16.3 days before regulatory threshold breach.
+Table~\ref{tab:ars_performance} presents \ars\ prediction results. The end-to-end model achieves $R^2$ of 0.76 with early warning lead time of \SI{16.3}{days} before regulatory threshold breach.
 
 \begin{table}[!t]
 \renewcommand{\arraystretch}{1.3}
-\caption{Aflatoxin Risk Score (ARS) Prediction Performance}
+\caption{Aflatoxin Risk Score (\ars) Prediction Performance}
 \label{tab:ars_performance}
 \centering
 \begin{tabular}{lcccc}
 \toprule
-\textbf{Method} & \textbf{R²} & \textbf{RMSE} & \textbf{Lead Time} & \textbf{Risk Cat. Acc.} \\
+\textbf{Method} & \textbf{$R^2$} & \textbf{RMSE} & \textbf{Lead Time} & \textbf{Risk Cat. Acc.} \\
+ & & & (days) & (\si{\percent}) \\
 \midrule
-AIRS-GSeed (End-to-End) & \textbf{0.76} & \textbf{11.2} & \textbf{16.3 days} & \textbf{82.4\%} \\
-Field-Only & 0.61 & 14.8 & 8.5 days & 71.2\% \\
-Storage-Only & 0.68 & 13.1 & 12.1 days & 75.8\% \\
-Hyperspectral-Only & 0.70 & 12.5 & 10.2 days & 78.3\% \\
+AIRS-GSeed (End-to-End) & \textbf{0.76} & \textbf{11.2} & \textbf{16.3} & \textbf{82.4} \\
+Field-Only & 0.61 & 14.8 & 8.5 & 71.2 \\
+Storage-Only & 0.68 & 13.1 & 12.1 & 75.8 \\
+Hyperspectral-Only & 0.70 & 12.5 & 10.2 & 78.3 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -529,12 +600,12 @@ Table~\ref{tab:ablation} presents ablation study results, demonstrating the cont
 \centering
 \begin{tabular}{lcc}
 \toprule
-\textbf{Component Removed} & \textbf{SHI R² Drop} & \textbf{ARS R² Drop} \\
+\textbf{Component Removed} & \textbf{\shi\ $R^2$ Drop} & \textbf{\ars\ $R^2$ Drop} \\
 \midrule
-Pod-Zone Inference & -0.09 & -0.07 \\
-Hyperspectral Data & -0.15 & -0.12 \\
-Temporal Modeling & -0.06 & -0.08 \\
-Multi-Modal Fusion & -0.11 & -0.09 \\
+Pod-Zone Inference & $-0.09$ & $-0.07$ \\
+Hyperspectral Data & $-0.15$ & $-0.12$ \\
+Temporal Modeling & $-0.06$ & $-0.08$ \\
+Multi-Modal Fusion & $-0.11$ & $-0.09$ \\
 \bottomrule
 \end{tabular}
 \end{table}
