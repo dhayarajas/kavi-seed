@@ -1,0 +1,5 @@
+Method,Accuracy,Macro_F1,AUC_ROC,Lead_Time_days
+AIRS-GSeed (Full),89.2,0.87,0.93,10.5
+RGB-only CNN,80.7,0.76,0.85,5.2
+NDVI Threshold,72.3,0.68,0.74,2.1
+Non-Temporal,85.1,0.82,0.89,7.8

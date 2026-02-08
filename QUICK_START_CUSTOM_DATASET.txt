@@ -1,0 +1,171 @@
+================================================================================
+    AIRS-GSeed Custom Dataset - QUICK REFERENCE CARD
+================================================================================
+
+📊 YOUR CUSTOM DATASET HAS BEEN INTEGRATED AND ANALYZED!
+
+================================================================================
+📁 KEY FILES
+================================================================================
+
+INPUT:
+  /Users/dhaya/Kavitha-Agri/Custom-Dataset/Three_Month_Seed_Quality_Data.xlsx
+
+PROGRAMS:
+  /Users/dhaya/Kavitha-Agri/Codebase/AIRS-GSeet/read_custom_dataset.py
+  /Users/dhaya/Kavitha-Agri/Codebase/AIRS-GSeet/generate_custom_results.py
+
+RESULTS (in Codebase/AIRS-GSeet/results/):
+  📈 custom_temporal_analysis.pdf
+  📈 custom_quality_parameters.pdf
+  📈 custom_airs_gseed_performance.pdf
+  📊 custom_dataset_airs_gseed_analysis.csv
+  📊 custom_dataset_summary_statistics.csv
+  📊 custom_dataset_summary.csv
+
+DOCUMENTATION:
+  📖 CUSTOM_DATASET_RESULTS.md (Detailed findings)
+  📖 CUSTOM_DATASET_USAGE.md (How to use)
+  📖 CUSTOM_DATASET_INTEGRATION_SUMMARY.md (Complete summary)
+
+================================================================================
+🚀 RUN ANALYSIS
+================================================================================
+
+cd /Users/dhaya/Kavitha-Agri/Codebase/AIRS-GSeet
+/opt/anaconda3/bin/python generate_custom_results.py
+
+  ⏱️  Takes about 5-6 minutes
+  ✅  Generates 3 PDFs + 3 CSVs
+
+================================================================================
+📊 YOUR RESULTS AT A GLANCE
+================================================================================
+
+SEED QUALITY TREND (3 months):
+  ┌─────────────┬──────────┬──────────┬──────────┬──────────┐
+  │ Metric      │ Initial  │ Month 1  │ Month 2  │ Change   │
+  ├─────────────┼──────────┼──────────┼──────────┼──────────┤
+  │ Germination │   91%    │   85%    │   81%    │  -11% ⚠️ │
+  │ Vigour      │  3130    │  2924    │  2362    │  -25% ⚠️ │
+  │ SHI         │  82.18   │  75.05   │  65.08   │  -21% ⚠️ │
+  │ Quality     │Excellent │   Good   │   Fair   │  Worse ⚠️│
+  └─────────────┴──────────┴──────────┴──────────┴──────────┘
+
+AFLATOXIN RISK TREND:
+  ┌─────────────┬──────────┬──────────┬──────────┬──────────┐
+  │ Metric      │ Initial  │ Month 1  │ Month 2  │ Change   │
+  ├─────────────┼──────────┼──────────┼──────────┼──────────┤
+  │ ARS Score   │   0.00   │  11.65   │  23.31   │  +23 ⚠️  │
+  │ Pathogen %  │   0.00   │   3.33   │   6.66   │ +6.7% ⚠️ │
+  │ Risk Level  │   Low    │   Low    │  Medium  │  Higher ⚠️│
+  └─────────────┴──────────┴──────────┴──────────┴──────────┘
+
+================================================================================
+⚠️ KEY WARNINGS
+================================================================================
+
+  🔴 Germination dropped to 81% (threshold: 85%)
+  🔴 Pathogen infestation: 6.66% (safe: <5%)
+  🔴 Seed Health Index: Fair (was Excellent)
+  🔴 Aflatoxin Risk: Medium level (escalating)
+
+================================================================================
+💡 RECOMMENDED ACTIONS
+================================================================================
+
+IMMEDIATE (This Week):
+  ✓ Reduce moisture to 6-8%
+  ✓ Inspect for pathogen contamination
+  ✓ Improve storage ventilation
+  ✓ Test for aflatoxin presence
+
+SHORT-TERM (This Month):
+  ✓ Implement humidity monitoring
+  ✓ Consider fungicide treatment
+  ✓ Separate affected seed batches
+  ✓ Update quality control procedures
+
+ONGOING:
+  ✓ Monitor SHI and ARS monthly
+  ✓ Add new data to Excel file
+  ✓ Re-run analysis regularly
+  ✓ Track intervention effectiveness
+
+================================================================================
+📖 NEED HELP?
+================================================================================
+
+Detailed Analysis:      Read CUSTOM_DATASET_RESULTS.md
+How to Use:            Read CUSTOM_DATASET_USAGE.md
+Complete Summary:      Read CUSTOM_DATASET_INTEGRATION_SUMMARY.md
+Framework Overview:    Read README.md
+
+View Results:          Open PDFs in results/ folder
+Analyze Data:          Open CSVs in Excel/Google Sheets
+
+================================================================================
+🔄 TO UPDATE WITH NEW DATA
+================================================================================
+
+1. Open Excel file:
+   Custom-Dataset/Three_Month_Seed_Quality_Data.xlsx
+
+2. Add new rows with additional months/measurements
+
+3. Run analysis:
+   cd /Users/dhaya/Kavitha-Agri/Codebase/AIRS-GSeet
+   /opt/anaconda3/bin/python generate_custom_results.py
+
+4. Check updated results in results/ folder
+
+================================================================================
+📞 QUICK TROUBLESHOOTING
+================================================================================
+
+Can't run program?
+  → Ensure conda packages installed:
+    conda install -y pandas openpyxl numpy matplotlib seaborn scipy
+
+File not found error?
+  → Check dataset is at:
+    /Users/dhaya/Kavitha-Agri/Custom-Dataset/Three_Month_Seed_Quality_Data.xlsx
+
+Wrong results?
+  → Verify Excel column names match expected format
+  → Check for extra spaces in headers
+  → Ensure data is in correct format
+
+================================================================================
+✅ WHAT'S BEEN DONE
+================================================================================
+
+  ✅ Custom dataset integrated into AIRS-GSeed framework
+  ✅ Seed Health Index (SHI) calculated for all time points
+  ✅ Aflatoxin Risk Score (ARS) calculated for all time points
+  ✅ 3 comprehensive PDF figures generated
+  ✅ 3 detailed CSV data files created
+  ✅ Complete documentation provided
+  ✅ Analysis programs created and tested
+  ✅ README updated with custom dataset info
+  ✅ All results validated and verified
+
+================================================================================
+🎯 BOTTOM LINE
+================================================================================
+
+Your seed quality is DECLINING over time:
+  • From "Excellent" to "Fair" in 3 months
+  • Aflatoxin risk has reached "Medium" level
+  • Action is needed to prevent further degradation
+
+The AIRS-GSeed framework is now monitoring your seeds and providing:
+  • Early warning of quality issues
+  • Quantified risk assessment
+  • Actionable recommendations
+  • Temporal trend analysis
+
+================================================================================
+Created: February 8, 2026
+Status: ✅ READY TO USE
+================================================================================

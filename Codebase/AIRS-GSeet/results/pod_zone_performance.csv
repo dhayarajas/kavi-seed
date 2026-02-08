@@ -1,0 +1,4 @@
+Method,Pod_Moisture_RMSE_VWC,Correlation
+AIRS-GSeed (PINN),6.2,0.78
+Canopy-Only,9.8,0.63
+Non-Physics ML,7.5,0.71

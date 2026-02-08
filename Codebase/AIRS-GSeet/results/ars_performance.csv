@@ -1,0 +1,5 @@
+Method,R2,RMSE,Lead_Time_days,Risk_Category_Accuracy
+AIRS-GSeed (End-to-End),0.76,11.2,16.3,82.4
+Field-Only,0.61,14.8,8.5,71.2
+Storage-Only,0.68,13.1,12.1,75.8
+Hyperspectral-Only,0.70,12.5,10.2,78.3

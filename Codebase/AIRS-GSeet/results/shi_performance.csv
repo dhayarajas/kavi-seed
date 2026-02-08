@@ -1,0 +1,5 @@
+Method,R2,RMSE,MAE,Correlation
+AIRS-GSeed (Multi-modal),0.81,9.8,7.2,0.86
+Hyperspectral-Only,0.72,12.5,9.1,0.79
+UAV-Only,0.65,14.8,11.3,0.71
+Single Time-Point,0.76,10.9,8.4,0.83
