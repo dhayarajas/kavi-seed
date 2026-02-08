@@ -39,7 +39,7 @@ AIRS-GSeed is a comprehensive AI framework for groundnut seed health assessment 
    - 3 professional charts (PNG)
    - 2 data files (CSV)
 
-📖 **Detailed Guide:** [HOW_TO_RUN_IN_COLAB.md](HOW_TO_RUN_IN_COLAB.md)
+📖 **Detailed Guide:** [HOW_TO_RUN_IN_COLAB.md](docs/HOW_TO_RUN_IN_COLAB.md)
 
 ### Option 2: Local Python
 
@@ -83,7 +83,7 @@ python generate_custom_results.py
 | **Pathogen (%)** | 0.00 | 6.66 | **+6.66% ⚠️** |
 | **Risk Level** | Low | Medium | **Escalated** |
 
-📖 **Full Analysis:** [CUSTOM_DATASET_RESULTS.md](CUSTOM_DATASET_RESULTS.md)
+📖 **Full Analysis:** [CUSTOM_DATASET_RESULTS.md](docs/CUSTOM_DATASET_RESULTS.md)
 
 ---
 
@@ -170,12 +170,12 @@ ARS = (Moisture Risk × 0.5) + (Pathogen Risk × 0.35) +
 
 ## 📖 Documentation
 
-Comprehensive documentation available:
+Comprehensive documentation available in the [`docs/`](docs/) folder:
 
-- **[HOW_TO_RUN_IN_COLAB.md](HOW_TO_RUN_IN_COLAB.md)** - Google Colab setup (3 steps)
-- **[CUSTOM_DATASET_RESULTS.md](CUSTOM_DATASET_RESULTS.md)** - Detailed findings & insights
-- **[CUSTOM_DATASET_USAGE.md](Codebase/AIRS-GSeet/CUSTOM_DATASET_USAGE.md)** - Python script usage
-- **[JUPYTER_NOTEBOOK_CREATED.md](JUPYTER_NOTEBOOK_CREATED.md)** - Notebook features
+- **[HOW_TO_RUN_IN_COLAB.md](docs/HOW_TO_RUN_IN_COLAB.md)** - Google Colab setup (3 steps)
+- **[CUSTOM_DATASET_RESULTS.md](docs/CUSTOM_DATASET_RESULTS.md)** - Detailed findings & insights
+- **[CUSTOM_DATASET_USAGE.md](docs/CUSTOM_DATASET_USAGE.md)** - Python script usage
+- **[JUPYTER_NOTEBOOK_CREATED.md](docs/JUPYTER_NOTEBOOK_CREATED.md)** - Notebook features
 - **[QUICK_START_CUSTOM_DATASET.txt](QUICK_START_CUSTOM_DATASET.txt)** - Quick reference
 - **[COMPLETE_PACKAGE_SUMMARY.txt](COMPLETE_PACKAGE_SUMMARY.txt)** - Full overview
 
@@ -239,4 +239,4 @@ For questions or collaborations:
 
 **Ready to analyze your seed quality data? Get started with the Jupyter notebook!** 🚀
 
-[Open in Colab](https://colab.research.google.com/) | [Read Documentation](HOW_TO_RUN_IN_COLAB.md) | [View Results](CUSTOM_DATASET_RESULTS.md)
+[Open in Colab](https://colab.research.google.com/) | [Read Documentation](docs/HOW_TO_RUN_IN_COLAB.md) | [View Results](docs/CUSTOM_DATASET_RESULTS.md)
